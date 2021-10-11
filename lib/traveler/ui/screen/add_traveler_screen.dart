@@ -201,7 +201,7 @@ class _AddTravelerFormState extends State<_AddTravelerForm> {
                             ));
                           }
                         },
-                        child: Text('Add traveler'),
+                        child: Text('Add'),
                       ),
                       SizedBox(
                         height: 16,
@@ -220,7 +220,7 @@ class _AddTravelerFormState extends State<_AddTravelerForm> {
                             firstName: _firstnameController.text,
                           ),
                         )),
-                        child: Text('Clear form'),
+                        child: Text('Clear'),
                       ),
                     ],
                   )

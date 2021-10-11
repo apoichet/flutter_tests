@@ -67,13 +67,9 @@ class _CustomInputState extends State<CustomInput> {
         validator: (String? value) {
           if (widget.validator != null) {
             String? error = widget.validator!(value);
-            try {
-              setState(() {
-                _onError = error != null;
-              });
-            } catch (error) {
-              // fail to rebuild with error state, already rebuilding
-            }
+            setState(() {
+              _onError = error != null;
+            });
             return error;
           } else {
             return null;
@@ -97,11 +93,11 @@ class _CustomInputState extends State<CustomInput> {
                     : Theme.of(context)
                         .textTheme
                         .subtitle2
-                        ?.copyWith(color: Theme.of(context).accentColor)),
+                        ?.copyWith(color: Theme.of(context).primaryColor)),
             filled: !widget.enabled,
             fillColor: !widget.enabled
-                ? Theme.of(context).accentColor
-                : Theme.of(context).accentColor),
+                ? Theme.of(context).primaryColor
+                : Theme.of(context).primaryColor),
       ),
     );
   }

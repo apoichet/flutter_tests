@@ -13,11 +13,14 @@ import 'package:flutter_tests/traveler/ui/screen/add_traveler_success_screen.dar
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../../golden_sizes_helper.dart';
 import '../../logic/traveler_description/traveler_description_cubit_test.dart';
 
-class TravelerDescriptionCubitMock extends MockCubit<TravelerDescriptionState> implements TravelerDescriptionCubit {}
+class TravelerDescriptionCubitMock extends MockCubit<TravelerDescriptionState>
+    implements TravelerDescriptionCubit {}
 
-class TravelerDescriptionStateFake extends Fake implements TravelerDescriptionState {}
+class TravelerDescriptionStateFake extends Fake
+    implements TravelerDescriptionState {}
 
 class NavigatorObserverMock extends Mock implements NavigatorObserver {}
 
@@ -56,21 +59,31 @@ void main() {
 
   group('$AddTravelerScreen Widget Tests', () {
     group('build state', () {
-      testWidgets('$AddTravelerLoading should show $CircularProgressIndicator', (WidgetTester tester) async {
+      testWidgets('$AddTravelerLoading should show $CircularProgressIndicator',
+          (WidgetTester tester) async {
         final traveler = Traveler(type: TravelerType.ADULT);
-        when(() => travelerFormBlocMock.state).thenReturn(AddTravelerLoading(traveler));
-        when(() => travelerDescriptionCubitMock.state).thenReturn(TravelerDescriptionState(TravelerDescription.ADULT));
+        when(() => travelerFormBlocMock.state)
+            .thenReturn(AddTravelerLoading(traveler));
+        when(() => travelerDescriptionCubitMock.state)
+            .thenReturn(TravelerDescriptionState(TravelerDescription.ADULT));
 
         await tester.pumpWidget(widget);
 
         expect(find.byType(CircularProgressIndicator), findsOneWidget);
       });
 
-      testWidgets('$TravelerFormClean should clear form', (WidgetTester tester) async {
-        final traveler = Traveler(firstName: "firstName", lastName: "lastName", age: "22", type: TravelerType.YOUNG);
-        whenListen(travelerFormBlocMock, Stream.value(TravelerFormClean()), initialState: TravelerFormUpdate(traveler));
+      testWidgets('$TravelerFormClean should clear form',
+          (WidgetTester tester) async {
+        final traveler = Traveler(
+            firstName: "firstName",
+            lastName: "lastName",
+            age: "22",
+            type: TravelerType.YOUNG);
+        whenListen(travelerFormBlocMock, Stream.value(TravelerFormClean()),
+            initialState: TravelerFormUpdate(traveler));
 
-        when(() => travelerDescriptionCubitMock.state).thenReturn(TravelerDescriptionState(TravelerDescription.ADULT));
+        when(() => travelerDescriptionCubitMock.state)
+            .thenReturn(TravelerDescriptionState(TravelerDescription.ADULT));
 
         await tester.pumpWidget(widget);
         await tester.pumpAndSettle();
@@ -83,11 +96,15 @@ void main() {
     });
 
     group('listen state', () {
-      testWidgets('$AddTravelerSuccess should navigate to $AddTravelerSuccessScreen', (WidgetTester tester) async {
-        when(() => travelerDescriptionCubitMock.state).thenReturn(TravelerDescriptionState(TravelerDescription.ADULT));
+      testWidgets(
+          '$AddTravelerSuccess should navigate to $AddTravelerSuccessScreen',
+          (WidgetTester tester) async {
+        when(() => travelerDescriptionCubitMock.state)
+            .thenReturn(TravelerDescriptionState(TravelerDescription.ADULT));
 
         final traveler = Traveler(type: TravelerType.ADULT);
-        whenListen(travelerFormBlocMock, Stream.value(AddTravelerSuccess(traveler)),
+        whenListen(
+            travelerFormBlocMock, Stream.value(AddTravelerSuccess(traveler)),
             initialState: AddTravelerInitial());
 
         await tester.pumpWidget(widget);
@@ -98,11 +115,16 @@ void main() {
         expect(find.byType(AddTravelerSuccessScreen), findsOneWidget);
       });
 
-      testWidgets('$AddTravelerError should show snack bar with error msg', (WidgetTester tester) async {
-        when(() => travelerDescriptionCubitMock.state).thenReturn(TravelerDescriptionState(TravelerDescription.ADULT));
+      testWidgets('$AddTravelerError should show snack bar with error msg',
+          (WidgetTester tester) async {
+        when(() => travelerDescriptionCubitMock.state)
+            .thenReturn(TravelerDescriptionState(TravelerDescription.ADULT));
 
         final traveler = Traveler(type: TravelerType.ADULT);
-        whenListen(travelerFormBlocMock, Stream.value(AddTravelerError(traveler: traveler, msgError: "Error")),
+        whenListen(
+            travelerFormBlocMock,
+            Stream.value(
+                AddTravelerError(traveler: traveler, msgError: "Error")),
             initialState: AddTravelerInitial());
 
         await tester.pumpWidget(widget);
@@ -118,11 +140,41 @@ void main() {
   group('$AddTravelerScreen Golden Tests', () {
     testGoldens('$AddTravelerInitial state', (tester) async {
       when(() => travelerFormBlocMock.state).thenReturn(AddTravelerInitial());
-      when(() => travelerDescriptionCubitMock.state).thenReturn(TravelerDescriptionState(TravelerDescription.ADULT));
+      when(() => travelerDescriptionCubitMock.state)
+          .thenReturn(TravelerDescriptionState(TravelerDescription.ADULT));
 
       await tester.pumpWidgetBuilder(widget);
 
-      await multiScreenGolden(tester, 'add_traveler');
+      await multiScreenGolden(
+        tester,
+        'add_traveler',
+        devices: GoldenSizeHelper.screens,
+        autoHeight: true,
+      );
+    });
+
+    testGoldens('$AddTravelerInitial state with semantics', (tester) async {
+      when(() => travelerFormBlocMock.state).thenReturn(AddTravelerInitial());
+      when(() => travelerDescriptionCubitMock.state)
+          .thenReturn(TravelerDescriptionState(TravelerDescription.ADULT));
+
+      await tester.pumpWidgetBuilder(Builder(builder: (context) {
+        return SemanticsDebugger(
+            labelStyle: TextStyle(
+              fontFamily: Theme.of(context).textTheme.bodyText1?.fontFamily,
+              color: Color(0xFF000000),
+              fontSize: 10.0,
+              height: 0.8,
+            ),
+            child: widget);
+      }));
+
+      await multiScreenGolden(
+        tester,
+        'add_traveler',
+        devices: [GoldenSizeHelper.semanticsScreen],
+        autoHeight: true,
+      );
     });
   });
 }
