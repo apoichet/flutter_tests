@@ -13,7 +13,7 @@ import 'package:flutter_tests/traveler/ui/screen/add_traveler_success_screen.dar
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../golden_sizes_helper.dart';
+import '../../../golden_helper.dart';
 import '../../logic/traveler_description/traveler_description_cubit_test.dart';
 
 class TravelerDescriptionCubitMock extends MockCubit<TravelerDescriptionState>
@@ -151,23 +151,8 @@ void main() {
         devices: GoldenSizeHelper.screens,
         autoHeight: true,
       );
-    });
 
-    testGoldens('$AddTravelerInitial state with semantics', (tester) async {
-      when(() => travelerFormBlocMock.state).thenReturn(AddTravelerInitial());
-      when(() => travelerDescriptionCubitMock.state)
-          .thenReturn(TravelerDescriptionState(TravelerDescription.ADULT));
-
-      await tester.pumpWidgetBuilder(Builder(builder: (context) {
-        return SemanticsDebugger(
-            labelStyle: TextStyle(
-              fontFamily: Theme.of(context).textTheme.bodyText1?.fontFamily,
-              color: Color(0xFF000000),
-              fontSize: 10.0,
-              height: 0.8,
-            ),
-            child: widget);
-      }));
+      await tester.pumpWidgetBuilder(MaterialGolden(child: widget));
 
       await multiScreenGolden(
         tester,

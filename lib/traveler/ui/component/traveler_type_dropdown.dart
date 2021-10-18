@@ -36,6 +36,7 @@ class _TravelerTypeDropdownState extends State<TravelerTypeDropdown> {
         label: _getSemanticLabel(),
         child: ExcludeSemantics(
           child: DropdownButton<TravelerType>(
+              key: widget.key,
               style: Theme.of(context)
                   .textTheme
                   .bodyText2

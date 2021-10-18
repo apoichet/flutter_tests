@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tests/traveler/logic/traveler_form_event.dart';
 import 'package:flutter_tests/traveler/logic/traveler_form_state.dart';
-import 'package:flutter_tests/traveler/repository/traveler_repository.dart';
+import 'package:flutter_tests/traveler/repository/traveler_repository_fake.dart';
 
 class TravelerFormBloc extends Bloc<TravelerFormEvent, TravelerFormState> {
-  final TravelerRepository repository;
+  final TravelerRepositoryFake repository;
 
   TravelerFormBloc(this.repository) : super(AddTravelerInitial());
 

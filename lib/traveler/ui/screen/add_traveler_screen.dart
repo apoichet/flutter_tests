@@ -7,7 +7,7 @@ import 'package:flutter_tests/traveler/logic/traveler_form_bloc.dart';
 import 'package:flutter_tests/traveler/logic/traveler_form_event.dart';
 import 'package:flutter_tests/traveler/logic/traveler_form_state.dart';
 import 'package:flutter_tests/traveler/model/traveler.dart';
-import 'package:flutter_tests/traveler/repository/traveler_repository.dart';
+import 'package:flutter_tests/traveler/repository/traveler_repository_fake.dart';
 import 'package:flutter_tests/traveler/ui/component/custom_input.dart';
 import 'package:flutter_tests/traveler/ui/component/traveler_type_dropdown.dart';
 import 'package:flutter_tests/traveler/ui/screen/add_traveler_success_screen.dart';
@@ -16,10 +16,10 @@ class AddTravelerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => TravelerRepository(),
+      create: (context) => TravelerRepositoryFake(),
       child: MultiBlocProvider(providers: [
         BlocProvider(
-          create: (newContext) => TravelerFormBloc(RepositoryProvider.of<TravelerRepository>(newContext)),
+          create: (newContext) => TravelerFormBloc(RepositoryProvider.of<TravelerRepositoryFake>(newContext)),
         ),
         BlocProvider(
             create: (newContext) => TravelerDescriptionCubit(
@@ -137,18 +137,21 @@ class _AddTravelerFormState extends State<_AddTravelerForm> {
               child: Column(
                 children: [
                   CustomInput(
+                    key: Key("firstnameInput"),
                     controller: _firstnameController,
                     inputType: TextInputType.text,
                     label: 'Firstname:',
                     validator: (value) => value?.isNotEmpty == true ? null : 'Firstname is mandatory',
                   ),
                   CustomInput(
+                    key: Key("lastnameInput"),
                     controller: _lastnameController,
                     inputType: TextInputType.text,
                     label: 'Lastname:',
                     validator: (value) => value?.isNotEmpty == true ? null : 'Lastname is mandatory',
                   ),
                   CustomInput(
+                    key: Key("ageInput"),
                     controller: _ageController,
                     inputType: TextInputType.number,
                     label: 'Age:',
@@ -156,6 +159,7 @@ class _AddTravelerFormState extends State<_AddTravelerForm> {
                         value?.isNotEmpty == true && int.tryParse(value!) != null ? null : 'Age must be a number',
                   ),
                   TravelerTypeDropdown(
+                    key: ValueKey("TravelerTypeDropdown"),
                     onChanged: (value) {
                       setState(() {
                         _travelerType = value;

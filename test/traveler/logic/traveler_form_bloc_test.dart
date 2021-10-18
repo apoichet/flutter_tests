@@ -4,16 +4,16 @@ import 'package:flutter_tests/traveler/logic/traveler_form_bloc.dart';
 import 'package:flutter_tests/traveler/logic/traveler_form_event.dart';
 import 'package:flutter_tests/traveler/logic/traveler_form_state.dart';
 import 'package:flutter_tests/traveler/model/traveler.dart';
-import 'package:flutter_tests/traveler/repository/traveler_repository.dart';
+import 'package:flutter_tests/traveler/repository/traveler_repository_fake.dart';
 import 'package:mocktail/mocktail.dart';
 
-class TravelerRepositoryMock extends Mock implements TravelerRepository {}
+class TravelerRepositoryMock extends Mock implements TravelerRepositoryFake {}
 
 class _TravelerFake extends Fake implements Traveler {}
 
 void main() {
   late TravelerFormBloc bloc;
-  late TravelerRepository travelerRepositoryMock;
+  late TravelerRepositoryFake travelerRepositoryMock;
 
   setUp(() {
     travelerRepositoryMock = TravelerRepositoryMock();

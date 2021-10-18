@@ -60,6 +60,7 @@ class _CustomInputState extends State<CustomInput> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: TextFormField(
+        key: widget.key,
         controller: _controller,
         style: Theme.of(context).textTheme.bodyText2,
         keyboardType: widget.inputType,

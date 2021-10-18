@@ -1,11 +1,14 @@
 import 'package:flutter_tests/traveler/model/traveler.dart';
 
+const INTEGRATION_TEST = bool.fromEnvironment('INTEGRATION_TEST');
 var stubNbError = 0;
 
-class TravelerRepository {
+class TravelerRepositoryFake {
   Future<TravelerRepositoryResponse> addTraveler(Traveler traveler) {
     return Future.delayed(Duration(seconds: 1)).then((_) {
-      if (stubNbError == 0) {
+      if(INTEGRATION_TEST) {
+        return TravelerRepositoryResponse(success: TravelerRepositoryResponseSuccess(traveler));
+      } else if (stubNbError == 0) {
         stubNbError++;
         return TravelerRepositoryResponse(error: TravelerRepositoryResponseError("Technical Error"));
       } else if (stubNbError == 1) {
