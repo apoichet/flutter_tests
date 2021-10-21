@@ -17,11 +17,11 @@ class GoldenSizeHelper {
   static final semanticsScreen = Device.phone.copyWith(name: 'semantic');
 }
 
-class MaterialGolden extends StatelessWidget {
+class GoldenSemantics extends StatelessWidget {
 
   final Widget child;
 
-  const MaterialGolden({Key? key, required this.child}) : super(key: key);
+  const GoldenSemantics({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

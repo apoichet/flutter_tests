@@ -17,7 +17,7 @@ void main() {
     await multiScreenGolden(tester, 'add_traveler_success',
         devices: GoldenSizeHelper.screens);
 
-    await tester.pumpWidgetBuilder(MaterialGolden(child: widget));
+    await tester.pumpWidgetBuilder(GoldenSemantics(child: widget));
 
     await multiScreenGolden(tester, 'add_traveler_success',
         devices: [GoldenSizeHelper.semanticsScreen]);

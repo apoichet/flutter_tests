@@ -152,7 +152,7 @@ void main() {
         autoHeight: true,
       );
 
-      await tester.pumpWidgetBuilder(MaterialGolden(child: widget));
+      await tester.pumpWidgetBuilder(GoldenSemantics(child: widget));
 
       await multiScreenGolden(
         tester,
