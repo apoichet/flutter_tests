@@ -50,3 +50,10 @@ app.*.map.json
 
 # don't check in golden failure output
 **/failures/*.png
+
+# Test reports
+test_reports/*
+test_report.csv
+
+# Coverage
+coverage/*

@@ -41,6 +41,10 @@ void main() {
 
       expect(find.byType(AddTravelerScreen), findsNothing);
       expect(find.byType(AddTravelerSuccessScreen), findsOneWidget);
+      expect(find.text("Alexandre"), findsOneWidget);
+      expect(find.text("Poichet"), findsOneWidget);
+      expect(find.text("22"), findsOneWidget);
+      expect(find.text(TravelerType.YOUNG.toShortString()), findsOneWidget);
     });
   });
 }
