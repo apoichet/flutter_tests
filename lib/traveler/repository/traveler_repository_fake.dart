@@ -5,18 +5,19 @@ var stubNbError = 0;
 
 class TravelerRepositoryFake {
   Future<TravelerRepositoryResponse> addTraveler(Traveler traveler) {
+
     return Future.delayed(Duration(seconds: 1)).then((_) {
-      if(INTEGRATION_TEST) {
-        return TravelerRepositoryResponse(success: TravelerRepositoryResponseSuccess(traveler));
-      } else if (stubNbError == 0) {
-        stubNbError++;
+
+      if(int.parse(traveler.age) <= 0) {
         return TravelerRepositoryResponse(error: TravelerRepositoryResponseError("Technical Error"));
-      } else if (stubNbError == 1) {
-        stubNbError++;
-        return TravelerRepositoryResponse(error: TravelerRepositoryResponseError("Functional Error"));
-      } else {
-        return TravelerRepositoryResponse(success: TravelerRepositoryResponseSuccess(traveler));
       }
+
+      if(traveler.type == TravelerType.YOUNG && int.parse(traveler.age) >= 27) {
+        return TravelerRepositoryResponse(error: TravelerRepositoryResponseError("Functional Error"));
+      }
+
+      return TravelerRepositoryResponse(success: TravelerRepositoryResponseSuccess(traveler));
+
     });
   }
 }
