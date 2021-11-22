@@ -38,7 +38,7 @@ void main() {
   blocTest<TravelerDescriptionCubit, TravelerDescriptionState>(
     '$TravelerDescriptionCubit emits new state with corresponding description from traveler type',
     build: () => cubit,
-    act: (cubit) {
+    act: (_) {
       cubit.newDescriptionFrom(TravelerType.BABY);
       cubit.newDescriptionFrom(TravelerType.YOUNG);
       cubit.newDescriptionFrom(TravelerType.ADULT);
@@ -50,7 +50,7 @@ void main() {
       TravelerDescriptionState(TravelerDescription.ADULT),
       TravelerDescriptionState(TravelerDescription.SENIOR),
     ],
-    verify: (cubit) => verify(
+    verify: (_) => verify(
       () => travelerFormBlocMock.stream.listen(
         (event) => cubit.newDescriptionFrom(event.traveler.type),
       ),
