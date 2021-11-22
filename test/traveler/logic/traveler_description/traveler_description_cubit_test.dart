@@ -27,8 +27,8 @@ void main() {
   });
 
   setUpAll(() {
-    registerFallbackValue<TravelerFormState>(TravelerFormStateFake());
-    registerFallbackValue<TravelerFormEvent>(TravelerFormEventFake());
+    registerFallbackValue(TravelerFormStateFake());
+    registerFallbackValue(TravelerFormEventFake());
   });
 
   tearDownAll(() {
