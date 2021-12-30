@@ -16,6 +16,10 @@ class AddTravelerInitial extends TravelerFormState {
   AddTravelerInitial() : super(_initTraveler);
 }
 
+class AddTravelerTestInitial extends TravelerFormState {
+  AddTravelerTestInitial() : super(_initTraveler);
+}
+
 class AddTravelerSuccess extends TravelerFormState {
   AddTravelerSuccess(Traveler traveler) : super(traveler);
 }

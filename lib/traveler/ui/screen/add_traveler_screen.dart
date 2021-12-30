@@ -36,9 +36,9 @@ class AddTraveler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<TravelerFormBloc, TravelerFormState>(
-      listener: (context, state) async {
+      listener: (context, state) {
         if (state is AddTravelerSuccess) {
-          await Navigator.push(
+          Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => AddTravelerSuccessScreen(state.traveler)),
           );
@@ -56,6 +56,7 @@ class AddTraveler extends StatelessWidget {
           );
         }
       },
+      buildWhen: (_, state) => state.runtimeType != AddTravelerSuccess,
       builder: (context, state) {
         if (state is AddTravelerLoading) {
           return _AddTravelerLoading();
@@ -188,6 +189,7 @@ class _AddTravelerFormState extends State<_AddTravelerForm> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
+                        key: Key("My ElevatedButton"),
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.resolveWith((_) => Colors.blue),
                             fixedSize: MaterialStateProperty.resolveWith(
@@ -205,7 +207,7 @@ class _AddTravelerFormState extends State<_AddTravelerForm> {
                             ));
                           }
                         },
-                        child: Text('Add'),
+                        child: Text('Add', key: Key('Add Text'),),
                       ),
                       SizedBox(
                         height: 16,
