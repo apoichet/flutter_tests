@@ -56,7 +56,6 @@ class AddTraveler extends StatelessWidget {
           );
         }
       },
-      buildWhen: (_, state) => state.runtimeType != AddTravelerSuccess,
       builder: (context, state) {
         if (state is AddTravelerLoading) {
           return _AddTravelerLoading();
